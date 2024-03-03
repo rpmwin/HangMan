@@ -403,7 +403,7 @@ function App() {
           </button>
         )}
       </div>
-      <div className="mt-5 text-4xl flex flex-col w-max justify-center items-center p-4 ">
+      <div className="mt-5 text-4xl flex flex-col w-max justify-center items-center p-4 bg-neutral-900 border rounded-lg">
         <p className="text-3xl p-4">
           Attempts <span className="text-red-500"> LEFT : {counter}</span>
         </p>
