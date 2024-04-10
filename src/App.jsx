@@ -323,95 +323,127 @@ function App() {
   const attemptImages = [eight, seven, six, five, four, three, two, one];
 
   return (
-    <div className="bg-black min-w-screen w-full min-h-screen h-full flex justify-center text-white  items-center">
-      <p className="absolute top-10 text-8xl font-bold italic  border-b text-lime-600">
+    <div className="bg-black min-h-screen flex flex-col justify-center items-center text-white min-w-sceen ">
+      <div className="text-5xl font-bold italic border-b text-lime-600 mb-8">
         HANGMAN
-      </p>
-
-      <div className=" bg-black  w-3/5 min-h-screen h-full flex justify-center text-white flex-col items-center">
-        <h1 className="text-3xl font-bold underline">{categoryName}</h1>
-
-        <div className="flex text-3xl">
-          {answer.split('').map((char, index) => (
-            <span key={index} className="underline p-1">
-              {guessedChars.includes(char) ? char : '_'}
-            </span>
-          ))}
-        </div>
-
-        <div className="keyboard flex flex-col gap-2 w-min items-center p-5 justify-center text-xl text-black">
-          <div className="flex gap-2">
-            {['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'].map((char) => (
-              <button
-                key={char}
-                onClick={() => selectedChar(char)}
-                disabled={gameOver}
-              >
-                <p className="p-2 bg-slate-300 rounded w-9 text-center hover:bg-slate-800 hover:text-white duration-300">
-                  {char}
-                </p>
-              </button>
-            ))}
-          </div>
-          <div className="flex gap-2">
-            {['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'].map((char) => (
-              <button
-                key={char}
-                onClick={() => selectedChar(char)}
-                disabled={gameOver}
-              >
-                <p className="p-2 bg-slate-300 rounded w-9 text-center hover:bg-slate-800 hover:text-white duration-300">
-                  {char}
-                </p>
-              </button>
-            ))}
-          </div>
-          <div className="flex gap-2">
-            {['Z', 'X', 'C', 'V', 'B', 'N', 'M'].map((char) => (
-              <button
-                key={char}
-                onClick={() => selectedChar(char)}
-                disabled={gameOver}
-              >
-                <p className="p-2 bg-slate-300 rounded w-9 text-center hover:bg-slate-800 hover:text-white duration-300">
-                  {char}
-                </p>
-              </button>
-            ))}
-          </div>
-        </div>
-        {gameOver && !gameWon && (
-          <p className="text-2xl text-red-500">
-            You Lost! The correct answer was {answer}.
-          </p>
-        )}
-        {gameWon && <p className="text-2xl text-green-500">You Won!</p>}
-        {!gameWon && !gameOver && (
-          <button
-            onClick={createVariable}
-            className="bg-orange-400 hover:bg-orange-800 hover:text-white text-2xl p-3 rounded mt-5"
-          >
-            Start Game
-          </button>
-        )}
-        {(gameWon || gameOver) && (
-          <button
-            onClick={createVariable}
-            className="bg-orange-400 hover:bg-orange-800 hover:text-white text-2xl p-3 rounded mt-5"
-          >
-            New Game
-          </button>
-        )}
       </div>
-      <div className="mt-5 text-4xl flex flex-col w-max justify-center items-center p-4 bg-neutral-900 border rounded-lg">
-        <p className="text-3xl p-4">
-          Attempts <span className="text-red-500"> LEFT : {counter}</span>
-        </p>
-        <img
-          src={attemptImages[counter]}
-          alt={`Attempts left: ${counter}`}
-          className="w-min"
-        />
+
+      <div className="w-full sm:w-4/5 md:w-3/5 lg:w-1/2 flex flex-col sm:flex-row">
+        <div className="w-full sm:w-3/5 flex flex-col justify-center items-center">
+          <h1 className="text-3xl font-bold underline mb-4">{categoryName}</h1>
+
+          <div className="flex flex-wrap justify-center">
+            {answer.split('').map((char, index) => (
+              <span key={index} className="underline p-1 text-4xl">
+                {char === ' ' ? ' ' : guessedChars.includes(char) ? char : '_'}
+              </span>
+            ))}
+          </div>
+
+          <div className="keyboard flex flex-col gap-2 w-min items-center p-5 justify-center text-xl text-black mt-4 scale-75">
+            {/* Keyboard buttons */}
+            <div className="flex gap-2">
+              {['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'].map(
+                (char) => (
+                  <button
+                    key={char}
+                    onClick={() => selectedChar(char)}
+                    disabled={gameOver}
+                  >
+                    <p
+                      className="p-2 bg-slate-300 rounded w-9 text-center hover:bg-slate-800 hover:text-white duration-300"
+                      style={{
+                        backgroundColor: guessedChars.includes(char)
+                          ? 'green'
+                          : '',
+                        color: guessedChars.includes(char) ? 'white' : '',
+                      }}
+                    >
+                      {char}
+                    </p>
+                  </button>
+                ),
+              )}
+            </div>
+            <div className="flex gap-2">
+              {['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'].map((char) => (
+                <button
+                  key={char}
+                  onClick={() => selectedChar(char)}
+                  disabled={gameOver}
+                >
+                  <p
+                    className="p-2 bg-slate-300 rounded w-9 text-center hover:bg-slate-800 hover:text-white duration-300"
+                    style={{
+                      backgroundColor: guessedChars.includes(char)
+                        ? 'green'
+                        : '',
+                      color: guessedChars.includes(char) ? 'white' : '',
+                    }}
+                  >
+                    {char}
+                  </p>
+                </button>
+              ))}
+            </div>
+            <div className="flex gap-2">
+              {['Z', 'X', 'C', 'V', 'B', 'N', 'M'].map((char) => (
+                <button
+                  key={char}
+                  onClick={() => selectedChar(char)}
+                  disabled={gameOver}
+                >
+                  <p
+                    className="p-2 bg-slate-300 rounded w-9 text-center hover:bg-slate-800 hover:text-white duration-300"
+                    style={{
+                      backgroundColor: guessedChars.includes(char)
+                        ? 'green'
+                        : '',
+                      color: guessedChars.includes(char) ? 'white' : '',
+                    }}
+                  >
+                    {char}
+                  </p>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {gameOver && !gameWon && (
+            <p className="text-2xl text-red-500 text-center">
+              You Lost! The correct answer was{' '}
+              <span className="text-4xl"> {answer}</span>.
+            </p>
+          )}
+          {gameWon && <p className="text-2xl text-green-500">You Won!</p>}
+          {!gameWon && !gameOver && (
+            <button
+              onClick={createVariable}
+              className="bg-orange-400 hover:bg-orange-800 hover:text-white text-2xl p-3 rounded mt-5"
+            >
+              Start Game
+            </button>
+          )}
+          {(gameWon || gameOver) && (
+            <button
+              onClick={createVariable}
+              className="bg-orange-400 hover:bg-orange-800 hover:text-white text-2xl p-3 rounded mt-5"
+            >
+              New Game
+            </button>
+          )}
+        </div>
+
+        <div className="mt-5 sm:ml-14  text-4xl flex flex-col justify-center items-center p-4 bg-neutral-900 border rounded-lg">
+          <p className="text-3xl p-4">
+            Attempts <span className="text-red-500"> LEFT : {counter}</span>
+          </p>
+          <img
+            src={attemptImages[counter]}
+            alt={`Attempts left: ${counter}`}
+            className="w-min"
+          />
+        </div>
       </div>
     </div>
   );
